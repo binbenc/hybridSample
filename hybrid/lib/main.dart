@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hybrid/page/detail_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -22,7 +23,24 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: _pageRoute(window.defaultRouteName),
+      // routes: {'main/detail': (context) => const DetailPage()},
     );
+  }
+}
+
+/// The entrypoint for the flutter chat module.
+@pragma('vm:entry-point')
+void hybridMain() {
+  WidgetsFlutterBinding.ensureInitialized();
+  // 页面必须包一个 MaterialApp 否则就会报 scaffold widgets require a directionality widget ancestor
+  runApp(const MaterialApp(home: DetailPage()));
+}
+
+_pageRoute(String routeName) {
+  switch (routeName) {
+    case 'main/detail':
+      return const DetailPage();
   }
 }
 

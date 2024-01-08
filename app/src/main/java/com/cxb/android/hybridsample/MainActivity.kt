@@ -11,9 +11,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<AppCompatButton>(R.id.tv_flutter).setOnClickListener {
-            startActivity(
-                FlutterActivity.createDefaultIntent(this)
-            );
+//            startActivity(
+//                FlutterActivity.createDefaultIntent(this)
+//            )
+            FlutterUtils.launchHybridFunc()
         }
     }
 }
