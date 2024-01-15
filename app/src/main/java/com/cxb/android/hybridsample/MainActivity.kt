@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity() {
 //            startActivity(
 //                FlutterActivity.createDefaultIntent(this)
 //            )
-            FlutterUtils.launchHybridFunc()
+//            FlutterUtils.launchHybridFunc()
+//            FlutterUtils.navigateToPage("main/detail")
+            FlutterUtils.toFlutter(this,"")
         }
     }
 }

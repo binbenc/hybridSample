@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hybrid/page/detail_page.dart';
 
 void main() => runApp(const MyApp());
@@ -22,9 +23,11 @@ class MyApp extends StatelessWidget {
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // home: _pageRoute(window.defaultRouteName),
-      // routes: {'main/detail': (context) => const DetailPage()},
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (context) => const MyHomePage(title: '第一个页面'),
+        'main/detail': (context) => const DetailPage()
+      },
     );
   }
 }
@@ -34,13 +37,35 @@ class MyApp extends StatelessWidget {
 void hybridMain() {
   WidgetsFlutterBinding.ensureInitialized();
   // 页面必须包一个 MaterialApp 否则就会报 scaffold widgets require a directionality widget ancestor
-  runApp(const MaterialApp(home: DetailPage()));
+  // runApp(const MaterialApp(home: DetailPage()));
+
+  // 设置方法通道
+  // MethodChannel _channel = const MethodChannel('com.example.channel');
+  // _channel.setMethodCallHandler((MethodCall call) async {
+  //   if (call.method == 'navigateToPage') {
+  //     String routeName = call.arguments['routeName'];
+  //     _navigateToPage(context, routeName);
+  //     return true;
+  //   }
+  // });
+  runApp(const MyApp());
+  // runApp(_pageRoute(window.defaultRouteName));
+}
+
+void _navigateToPage(BuildContext context, String routeName) {
+  // 导航到指定的路由
+  Navigator.pushNamed(context, routeName);
 }
 
 _pageRoute(String routeName) {
+  print("routeName" + routeName);
   switch (routeName) {
+    case 'main':
+      return const MyHomePage(title: '第一个页面');
     case 'main/detail':
       return const DetailPage();
+    // case 'main/detail':
+    //   return const DetailPage();
   }
 }
 
@@ -65,6 +90,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  static const platform = MethodChannel('com.cxb.flutter.hybrid');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -78,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    get(context);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -126,5 +160,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  get(BuildContext context) {
+    platform.setMethodCallHandler((call) async {
+      switch (call.method) {
+        case 'navigateToPage':
+          print("arguments: " + call.arguments);
+          _navigateToPage(context, 'main/detail');
+          break;
+      }
+      // 在这里处理方法调用
+      // 返回一个 Future<dynamic> 对象
+      return <String, dynamic>{
+        'result': 'success',
+      };
+    });
   }
 }
