@@ -25,3 +25,9 @@ A
 hybrid/hybrid.iml,9\e\9e58e323afc984992b9ee012569ea65ecd188ac2
 C
 hybrid/build.gradle,2\f\2f3bf266f336c1765f3dcb3693f0179448613a3e
+n
+>app/src/main/java/com/cxb/android/hybridsample/CApplication.kt,9\2\922788f8e3a564a688a561b7e238ba1317d74cb9
+M
+hybrid/lib/widget/appbar.dart,a\1\a1c0c7b45dc32f9f7d11db44833c65a79c99ae18
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164

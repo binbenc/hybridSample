@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/preference_utils.dart';
 import '../widget/appbar.dart';
 
 class PersonalInformationPage extends StatefulWidget {
@@ -10,6 +11,14 @@ class PersonalInformationPage extends StatefulWidget {
 }
 
 class _PersonalInformationState extends State<PersonalInformationPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    PreferenceUtils().setString("k1", "111");
+    print("PreferenceUtils key k1:" + PreferenceUtils().get("k1"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
