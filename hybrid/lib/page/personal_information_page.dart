@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/log_utils.dart';
 import '../utils/preference_utils.dart';
 import '../widget/appbar.dart';
 
@@ -15,6 +16,8 @@ class _PersonalInformationState extends State<PersonalInformationPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Log.d("test");
+    Log.e("test");
     PreferenceUtils().setString("k1", "111");
     print("PreferenceUtils key k1:" + PreferenceUtils().get("k1"));
   }
